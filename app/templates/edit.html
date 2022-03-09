@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{% block title %} Редактировать "{{ post['title'] }}" {% endblock %}</h1>
+
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="title">Заголовок</label>
+        <input type="text" name="title" placeholder="Заголовок статьи"
+               class="form-control"
+               value="{{ request.form['title'] or post['title'] }}">
+    </div>
+
+    <div class="form-group">
+        <label for="content">Текст статьи</label>
+        <textarea name="content" placeholder="Текст статьи"
+                  class="form-control">{{ request.form['content'] or post['content'] }}</textarea>
+    </div>
+
+    <div class="form-group">
+            <label for="image">Картинка статьи</label>
+            <input class="form-control-file" type="file" name="image"
+                   value="{{ request.files['image'] }}">
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Редактировать</button>
+    </div>
+</form>
+<hr>
+
+<form action="{{ url_for('delete', post_id=post['id']) }}" method="POST">
+    <input type="submit" value="Удалить статью"
+            class="btn btn-danger btn-sm"
+            onclick="return confirm('Вы уверены, что хотите удалить эту статью?')">
+</form>
+
+{% endblock %}

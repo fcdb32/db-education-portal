@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>{% block title %} {{ post['title'] }} {% endblock %}</h2>
+    <span class="badge badge-primary">{{ post['created'].strftime('%d %B %Y %H:%M') }}</span>
+    <hr>
+
+    {% if image %}
+        <div style="text-align: center; margin-bottom: 15px;">
+            <img src="data:image;base64,{{ image }}" alt="image not found">
+        </div>
+    {% endif %}
+
+    <p>{{ post['content'] }}</p>
+{% endblock %}
